@@ -1,0 +1,65 @@
+{
+    "type": "ready"
+}
+
+{
+    "type": "start",
+    "init_state": 0,
+    "color": "black"
+}
+
+/////////////////////////////////////////////////
+{
+    "type": "turn",
+    "time_limit": 50,
+    "opponent_decision": 37,
+    "changed_points": [04, 70],
+    "available_points" : [15, 26],
+    // optional
+    "opponent_status": "timeout" //or "no_available_point"
+}
+
+{
+    "type": "accept",
+    "opponent_time_limit": 50
+}
+
+///////////////////////////////////////////////
+
+{
+    "type": "timeout",
+    "auto_decision": 50,
+    "changed_points": [04, 70]
+}
+
+{
+    "type": "no_available_point",
+    "opponent_decision": 37,
+    "changed_points": [03, 70],
+    "opponent_status": "timeout"  // 여기 "no_available_point"는 올 수가 없는게, 양 측 모두 no avail이면 game over다.
+}
+
+
+{
+    "type": "gameover",
+    "opponent_put": 37,
+    "changed_points": [03, 70],
+    "result": "lose"
+}
+
+{
+    "type": "gameover",
+    "result": "win"
+}
+
+{
+    "type": "error",
+    "msg": "unavailable point(abuse)"
+}
+
+/////////////////////////////////////
+
+{
+    "type": "decision",
+    "point": 11
+}
