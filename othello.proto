@@ -1,0 +1,103 @@
+// [START declaration]
+syntax = "proto3";
+package othello;
+
+// import "google/protobuf/timestamp.proto";
+// [END declaration]
+
+// [START java_declaration]
+option java_package = "com.bob.othello";
+option java_outer_classname = "OthelloProtos";
+// [END java_declaration]
+
+// [START csharp_declaration]
+option csharp_namespace = "Bob.Protobuf.Othello";
+// [END csharp_declaration]
+
+// google.protobuf.Timestamp last_updated = 5;
+
+message ClntDecision {
+  uint32 point = 1;
+}
+
+message ServerMsg {
+  enum OrderType {
+    READY    = 0;
+    START    = 1;
+    TURN     = 2;
+    ACCEPT   = 3;
+    TIMEOUT  = 4;
+    NOPOINT  = 5;
+    GAMEOVER = 6;
+    ERROR    = 7;
+  }
+  OrderType type = 15;
+
+  Start start = 1;
+  Turn turn = 2;
+  Accept accept = 3;
+  Timeout timeout = 4;
+  NoPoint nopoint = 5;
+  GameOver gameover = 6;
+  Error error = 7;
+}
+
+message Turn {
+  uint32 time_limit = 1;
+  uint32 opponent_decision = 2;
+  repeated uint32 changed_points = 3;
+  repeated uint32 available_points = 4;
+  // optional
+  OpponentStatus opponent_status = 5;
+}
+
+message Start {
+  InitState init_state = 1;
+  Color color = 2;
+}
+
+message Accept {
+  uint32 opponent_time_limit = 1;
+}
+
+message Timeout {
+  uint32 auto_decision = 1;
+  repeated uint32 changed_points = 2;
+}
+
+message NoPoint {
+  uint32 opponent_decision = 1;
+  repeated uint32 changed_points = 2;
+  // optional
+  OpponentStatus opponent_status = 3;    // "timeout"은 가능. "nopoint"는 올 수가 없는게, 양 측 모두 no avail이면 game over다.
+}
+
+message GameOver {
+  string result = 1;
+  // optional
+  uint32 opponent_decision = 2;
+  repeated uint32 changed_points = 3;
+}
+
+message Error {
+  string msg = 1;
+}
+
+
+enum OpponentStatus {
+  NORMAL = 0;
+  TIMEOUT = 1;
+  NOPOINT = 2;
+}
+
+enum InitState {
+  BWBW = 0;
+  BBWW = 1;
+  WBWB = 2;
+  WWBB = 3;
+}
+
+enum Color {
+  BLACK = 0;
+  WHITE = 1;
+}

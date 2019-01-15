@@ -16,7 +16,7 @@
     "changed_points": [04, 70],
     "available_points" : [15, 26],
     // optional
-    "opponent_status": "timeout" //or "no_available_point"
+    "opponent_status": "timeout" //or "nopoint"
 }
 
 {
@@ -26,6 +26,7 @@
 
 ///////////////////////////////////////////////
 
+// timeout이 되었는데 auto_decision에서 둘 곳이 없는 경우는 없다. 이미 server processing 단계에서 둘 곳이 없으면 nopoint를 보내기 때문에.
 {
     "type": "timeout",
     "auto_decision": 50,
@@ -33,23 +34,20 @@
 }
 
 {
-    "type": "no_available_point",
+    "type": "nopoint",
     "opponent_decision": 37,
     "changed_points": [03, 70],
-    "opponent_status": "timeout"  // 여기 "no_available_point"는 올 수가 없는게, 양 측 모두 no avail이면 game over다.
+    // optional : 여기 "nopoint"는 올 수가 없는게, 양 측 모두 no avail이면 game over다.
+    "opponent_status": "timeout"  // 
 }
 
 
 {
     "type": "gameover",
+    "result": "lose",
+    // optional : 마지막 수를 두면서 게임이 끝나면, 그 마지막 수에 대한 정보를 상대편에게 보내면서 게임을 종료해야 하므로.
     "opponent_put": 37,
-    "changed_points": [03, 70],
-    "result": "lose"
-}
-
-{
-    "type": "gameover",
-    "result": "win"
+    "changed_points": [03, 70]
 }
 
 {
