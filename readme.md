@@ -57,10 +57,6 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 #### Server -> Client로 보내는 메시지 타입
 
-key-value  정보는 [sample.json](https://github.com/umbum/othello-with-RL/blob/master/sample.json) 참고. (자료형 및 상세 정보는 [othello.proto](https://github.com/umbum/othello-with-RL/blob/master/othello.proto) 참고.)
-
-sequence는 [SequanceDiagram.mdj](https://github.com/umbum/othello-with-RL/blob/master/SequenceDiagram.mdj)  참고. (starUML)
-
 - READY
 - START
 - TURN
@@ -72,13 +68,97 @@ sequence는 [SequanceDiagram.mdj](https://github.com/umbum/othello-with-RL/blob/
 
 
 
+##### READY
+
+상대방 플레이어를 대기하고 있을 때 수신
+
+
+
+##### START
+
+게임 시작 시 양측 수신
+
+`init_state :InitState` 초기 돌 위치 설정
+
+`color :Color` 흑/백 플레이어 설정
+
+
+
+##### TURN
+
+턴이 넘어올 때 수신
+
+`time_limit :uint32`  나의 턴일 때, 시간 제한
+
+`opponent_decision :uint32`  상대방이 놓은 마지막 수의 좌표.
+
+`changed_points :List<uint32>` 상대방이 놓은 마지막 수로 인해 뒤집힌 돌의 좌표(서버 측 프로세싱 결과)
+
+`available_points :List<uint32>` 현재 턴에 놓을 수 있는 좌표
+
+`opponent_status: OpponentStatus` 이전 턴 상대방의 상태(e.g., timeout)
+
+
+
+##### ACCEPT
+
+클라이언트 턴 종료 시 수신
+
+`opponent_time_limit :uint32` 상대방 턴일 때, 상대방의 시간 제한
+
+
+
+##### TIMEOUT
+
+타임아웃 시 수신
+
+`auto_decision :uint32` 서버가 자동으로 돌을 놓은 위치
+
+`changed_points :List<uint32>` 서버가 놓은 수로 인해 뒤집힌 돌의 좌표
+
+
+
+##### NOPOINT
+
+돌을 놓을 곳이 없을 때 수신
+
+`opponent_decision :uint32`  상대방이 놓은 마지막 수의 좌표.
+
+`changed_points :List<uint32>` 상대방이 놓은 마지막 수로 인해 뒤집힌 돌의 좌표(서버 측 프로세싱 결과)
+
+`opponent_status: OpponentStatus` 이전 턴 상대방의 상태(e.g., timeout)
+
+
+
+##### GAMEOVER
+
+게임이 종료되었을 때 수신
+
+`result :Result` 게임 결과
+
+`opponent_decision :uint32`  상대방이 놓은 마지막 수의 좌표.
+
+`changed_points :List<uint32>` 상대방이 놓은 마지막 수로 인해 뒤집힌 돌의 좌표(서버 측 프로세싱 결과)
+
+
+
+##### ERROR
+
+abusing이나 서버 오류 시 수신
+
+`msg :string` 오류 메시지
+
+
+
 #### Client->Server로 보내는 메시지 타입
 
-- DECISION
+##### DECISION
+
+`point :uint32` 놓은 돌의 좌표
 
 
 
-#### 돌의 위치
+#### 돌의 좌표
 
 ```
 opponent_decision, audo_decision, changed_points, available_points, point
@@ -87,6 +167,16 @@ opponent_decision, audo_decision, changed_points, available_points, point
 돌의 위치는 8*8 오델로를 2차원 배열로 관리할 것을 고려하여 10진수 정수 00~77을 사용하도록 한다.
 
 십의 자리는 행, 일의 자리는 열을 나타낸다.
+
+
+
+
+
+key-value  정보는 [sample.json](https://github.com/umbum/othello-with-RL/blob/master/sample.json) 참고. (자료형 및 상세 정보는 [othello.proto](https://github.com/umbum/othello-with-RL/blob/master/othello.proto) 참고.)
+
+sequence는 [SequanceDiagram.mdj](https://github.com/umbum/othello-with-RL/blob/master/SequenceDiagram.mdj)  참고. (starUML)
+
+
 
 
 
