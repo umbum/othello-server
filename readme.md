@@ -80,7 +80,7 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 `init_state :InitState` 초기 돌 위치 설정
 
-`color :Color` 흑/백 플레이어 설정
+`color :Color` 흑/백 플레이어 설정(먼저 들어가면 자동으로 흑)
 
 
 
