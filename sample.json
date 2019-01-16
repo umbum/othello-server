@@ -46,7 +46,7 @@
     "type": "gameover",
     "result": "lose",
     // optional : 마지막 수를 두면서 게임이 끝나면, 그 마지막 수에 대한 정보를 상대편에게 보내면서 게임을 종료해야 하므로.
-    "opponent_put": 37,
+    "opponent_decision": 37,
     "changed_points": [03, 70]
 }
 
