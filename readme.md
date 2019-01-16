@@ -78,6 +78,18 @@ sequence는 [SequanceDiagram.mdj](https://github.com/umbum/othello-with-RL/blob/
 
 
 
+#### 돌의 위치
+
+```
+opponent_decision, audo_decision, changed_points, available_points, point
+```
+
+돌의 위치는 8*8 오델로를 2차원 배열로 관리할 것을 고려하여 10진수 정수 00~77을 사용하도록 한다.
+
+십의 자리는 행, 일의 자리는 열을 나타낸다.
+
+
+
 ## 기타
 
 - packet logging
