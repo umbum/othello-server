@@ -16,7 +16,12 @@ option csharp_namespace = "Bob.Protobuf.Othello";
 
 // google.protobuf.Timestamp last_updated = 5;
 
-message ClntDecision {
+message ClntMsg {
+  enum ClntType {
+    DECISION = 0;
+  }
+  ClntType type = 15;
+
   uint32 point = 1;
 }
 
@@ -73,7 +78,7 @@ message NoPoint {
 }
 
 message GameOver {
-  string result = 1;
+  Result result = 1;
   // optional
   uint32 opponent_decision = 2;
   repeated uint32 changed_points = 3;
@@ -100,4 +105,10 @@ enum InitState {
 enum Color {
   BLACK = 0;
   WHITE = 1;
+}
+
+enum Result {
+  LOSE = 0;
+  WIN  = 1;
+  DRAW = 2;
 }

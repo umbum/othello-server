@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='othello',
   syntax='proto3',
   serialized_options=_b('\n\017com.bob.othelloB\rOthelloProtos\252\002\024Bob.Protobuf.Othello'),
-  serialized_pb=_b('\n\rothello.proto\x12\x07othello\"\x1d\n\x0c\x43lntDecision\x12\r\n\x05point\x18\x01 \x01(\r\"\x8a\x03\n\tServerMsg\x12*\n\x04type\x18\x0f \x01(\x0e\x32\x1c.othello.ServerMsg.OrderType\x12\x1d\n\x05start\x18\x01 \x01(\x0b\x32\x0e.othello.Start\x12\x1b\n\x04turn\x18\x02 \x01(\x0b\x32\r.othello.Turn\x12\x1f\n\x06\x61\x63\x63\x65pt\x18\x03 \x01(\x0b\x32\x0f.othello.Accept\x12!\n\x07timeout\x18\x04 \x01(\x0b\x32\x10.othello.Timeout\x12!\n\x07nopoint\x18\x05 \x01(\x0b\x32\x10.othello.NoPoint\x12#\n\x08gameover\x18\x06 \x01(\x0b\x32\x11.othello.GameOver\x12\x1d\n\x05\x65rror\x18\x07 \x01(\x0b\x32\x0e.othello.Error\"j\n\tOrderType\x12\t\n\x05READY\x10\x00\x12\t\n\x05START\x10\x01\x12\x08\n\x04TURN\x10\x02\x12\n\n\x06\x41\x43\x43\x45PT\x10\x03\x12\x0b\n\x07TIMEOUT\x10\x04\x12\x0b\n\x07NOPOINT\x10\x05\x12\x0c\n\x08GAMEOVER\x10\x06\x12\t\n\x05\x45RROR\x10\x07\"\x99\x01\n\x04Turn\x12\x12\n\ntime_limit\x18\x01 \x01(\r\x12\x19\n\x11opponent_decision\x18\x02 \x01(\r\x12\x16\n\x0e\x63hanged_points\x18\x03 \x03(\r\x12\x18\n\x10\x61vailable_points\x18\x04 \x03(\r\x12\x30\n\x0fopponent_status\x18\x05 \x01(\x0e\x32\x17.othello.OpponentStatus\"N\n\x05Start\x12&\n\ninit_state\x18\x01 \x01(\x0e\x32\x12.othello.InitState\x12\x1d\n\x05\x63olor\x18\x02 \x01(\x0e\x32\x0e.othello.Color\"%\n\x06\x41\x63\x63\x65pt\x12\x1b\n\x13opponent_time_limit\x18\x01 \x01(\r\"8\n\x07Timeout\x12\x15\n\rauto_decision\x18\x01 \x01(\r\x12\x16\n\x0e\x63hanged_points\x18\x02 \x03(\r\"n\n\x07NoPoint\x12\x19\n\x11opponent_decision\x18\x01 \x01(\r\x12\x16\n\x0e\x63hanged_points\x18\x02 \x03(\r\x12\x30\n\x0fopponent_status\x18\x03 \x01(\x0e\x32\x17.othello.OpponentStatus\"M\n\x08GameOver\x12\x0e\n\x06result\x18\x01 \x01(\t\x12\x19\n\x11opponent_decision\x18\x02 \x01(\r\x12\x16\n\x0e\x63hanged_points\x18\x03 \x03(\r\"\x14\n\x05\x45rror\x12\x0b\n\x03msg\x18\x01 \x01(\t*6\n\x0eOpponentStatus\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07TIMEOUT\x10\x01\x12\x0b\n\x07NOPOINT\x10\x02*3\n\tInitState\x12\x08\n\x04\x42WBW\x10\x00\x12\x08\n\x04\x42\x42WW\x10\x01\x12\x08\n\x04WBWB\x10\x02\x12\x08\n\x04WWBB\x10\x03*\x1d\n\x05\x43olor\x12\t\n\x05\x42LACK\x10\x00\x12\t\n\x05WHITE\x10\x01\x42\x37\n\x0f\x63om.bob.othelloB\rOthelloProtos\xaa\x02\x14\x42ob.Protobuf.Othellob\x06proto3')
+  serialized_pb=_b('\n\rothello.proto\x12\x07othello\"[\n\x07\x43lntMsg\x12\'\n\x04type\x18\x0f \x01(\x0e\x32\x19.othello.ClntMsg.ClntType\x12\r\n\x05point\x18\x01 \x01(\r\"\x18\n\x08\x43lntType\x12\x0c\n\x08\x44\x45\x43ISION\x10\x00\"\x8a\x03\n\tServerMsg\x12*\n\x04type\x18\x0f \x01(\x0e\x32\x1c.othello.ServerMsg.OrderType\x12\x1d\n\x05start\x18\x01 \x01(\x0b\x32\x0e.othello.Start\x12\x1b\n\x04turn\x18\x02 \x01(\x0b\x32\r.othello.Turn\x12\x1f\n\x06\x61\x63\x63\x65pt\x18\x03 \x01(\x0b\x32\x0f.othello.Accept\x12!\n\x07timeout\x18\x04 \x01(\x0b\x32\x10.othello.Timeout\x12!\n\x07nopoint\x18\x05 \x01(\x0b\x32\x10.othello.NoPoint\x12#\n\x08gameover\x18\x06 \x01(\x0b\x32\x11.othello.GameOver\x12\x1d\n\x05\x65rror\x18\x07 \x01(\x0b\x32\x0e.othello.Error\"j\n\tOrderType\x12\t\n\x05READY\x10\x00\x12\t\n\x05START\x10\x01\x12\x08\n\x04TURN\x10\x02\x12\n\n\x06\x41\x43\x43\x45PT\x10\x03\x12\x0b\n\x07TIMEOUT\x10\x04\x12\x0b\n\x07NOPOINT\x10\x05\x12\x0c\n\x08GAMEOVER\x10\x06\x12\t\n\x05\x45RROR\x10\x07\"\x99\x01\n\x04Turn\x12\x12\n\ntime_limit\x18\x01 \x01(\r\x12\x19\n\x11opponent_decision\x18\x02 \x01(\r\x12\x16\n\x0e\x63hanged_points\x18\x03 \x03(\r\x12\x18\n\x10\x61vailable_points\x18\x04 \x03(\r\x12\x30\n\x0fopponent_status\x18\x05 \x01(\x0e\x32\x17.othello.OpponentStatus\"N\n\x05Start\x12&\n\ninit_state\x18\x01 \x01(\x0e\x32\x12.othello.InitState\x12\x1d\n\x05\x63olor\x18\x02 \x01(\x0e\x32\x0e.othello.Color\"%\n\x06\x41\x63\x63\x65pt\x12\x1b\n\x13opponent_time_limit\x18\x01 \x01(\r\"8\n\x07Timeout\x12\x15\n\rauto_decision\x18\x01 \x01(\r\x12\x16\n\x0e\x63hanged_points\x18\x02 \x03(\r\"n\n\x07NoPoint\x12\x19\n\x11opponent_decision\x18\x01 \x01(\r\x12\x16\n\x0e\x63hanged_points\x18\x02 \x03(\r\x12\x30\n\x0fopponent_status\x18\x03 \x01(\x0e\x32\x17.othello.OpponentStatus\"^\n\x08GameOver\x12\x1f\n\x06result\x18\x01 \x01(\x0e\x32\x0f.othello.Result\x12\x19\n\x11opponent_decision\x18\x02 \x01(\r\x12\x16\n\x0e\x63hanged_points\x18\x03 \x03(\r\"\x14\n\x05\x45rror\x12\x0b\n\x03msg\x18\x01 \x01(\t*6\n\x0eOpponentStatus\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07TIMEOUT\x10\x01\x12\x0b\n\x07NOPOINT\x10\x02*3\n\tInitState\x12\x08\n\x04\x42WBW\x10\x00\x12\x08\n\x04\x42\x42WW\x10\x01\x12\x08\n\x04WBWB\x10\x02\x12\x08\n\x04WWBB\x10\x03*\x1d\n\x05\x43olor\x12\t\n\x05\x42LACK\x10\x00\x12\t\n\x05WHITE\x10\x01*%\n\x06Result\x12\x08\n\x04LOSE\x10\x00\x12\x07\n\x03WIN\x10\x01\x12\x08\n\x04\x44RAW\x10\x02\x42\x37\n\x0f\x63om.bob.othelloB\rOthelloProtos\xaa\x02\x14\x42ob.Protobuf.Othellob\x06proto3')
 )
 
 _OPPONENTSTATUS = _descriptor.EnumDescriptor(
@@ -44,8 +44,8 @@ _OPPONENTSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1000,
-  serialized_end=1054,
+  serialized_start=1079,
+  serialized_end=1133,
 )
 _sym_db.RegisterEnumDescriptor(_OPPONENTSTATUS)
 
@@ -75,8 +75,8 @@ _INITSTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1056,
-  serialized_end=1107,
+  serialized_start=1135,
+  serialized_end=1186,
 )
 _sym_db.RegisterEnumDescriptor(_INITSTATE)
 
@@ -98,12 +98,39 @@ _COLOR = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1109,
-  serialized_end=1138,
+  serialized_start=1188,
+  serialized_end=1217,
 )
 _sym_db.RegisterEnumDescriptor(_COLOR)
 
 Color = enum_type_wrapper.EnumTypeWrapper(_COLOR)
+_RESULT = _descriptor.EnumDescriptor(
+  name='Result',
+  full_name='othello.Result',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='LOSE', index=0, number=0,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='WIN', index=1, number=1,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DRAW', index=2, number=2,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=1219,
+  serialized_end=1256,
+)
+_sym_db.RegisterEnumDescriptor(_RESULT)
+
+Result = enum_type_wrapper.EnumTypeWrapper(_RESULT)
 NORMAL = 0
 TIMEOUT = 1
 NOPOINT = 2
@@ -113,7 +140,28 @@ WBWB = 2
 WWBB = 3
 BLACK = 0
 WHITE = 1
+LOSE = 0
+WIN = 1
+DRAW = 2
 
+
+_CLNTMSG_CLNTTYPE = _descriptor.EnumDescriptor(
+  name='ClntType',
+  full_name='othello.ClntMsg.ClntType',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='DECISION', index=0, number=0,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=93,
+  serialized_end=117,
+)
+_sym_db.RegisterEnumDescriptor(_CLNTMSG_CLNTTYPE)
 
 _SERVERMSG_ORDERTYPE = _descriptor.EnumDescriptor(
   name='OrderType',
@@ -156,21 +204,28 @@ _SERVERMSG_ORDERTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=346,
-  serialized_end=452,
+  serialized_start=408,
+  serialized_end=514,
 )
 _sym_db.RegisterEnumDescriptor(_SERVERMSG_ORDERTYPE)
 
 
-_CLNTDECISION = _descriptor.Descriptor(
-  name='ClntDecision',
-  full_name='othello.ClntDecision',
+_CLNTMSG = _descriptor.Descriptor(
+  name='ClntMsg',
+  full_name='othello.ClntMsg',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='point', full_name='othello.ClntDecision.point', index=0,
+      name='type', full_name='othello.ClntMsg.type', index=0,
+      number=15, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='point', full_name='othello.ClntMsg.point', index=1,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -181,6 +236,7 @@ _CLNTDECISION = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
+    _CLNTMSG_CLNTTYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -189,7 +245,7 @@ _CLNTDECISION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=26,
-  serialized_end=55,
+  serialized_end=117,
 )
 
 
@@ -269,8 +325,8 @@ _SERVERMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=58,
-  serialized_end=452,
+  serialized_start=120,
+  serialized_end=514,
 )
 
 
@@ -328,8 +384,8 @@ _TURN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=455,
-  serialized_end=608,
+  serialized_start=517,
+  serialized_end=670,
 )
 
 
@@ -366,8 +422,8 @@ _START = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=610,
-  serialized_end=688,
+  serialized_start=672,
+  serialized_end=750,
 )
 
 
@@ -397,8 +453,8 @@ _ACCEPT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=690,
-  serialized_end=727,
+  serialized_start=752,
+  serialized_end=789,
 )
 
 
@@ -435,8 +491,8 @@ _TIMEOUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=729,
-  serialized_end=785,
+  serialized_start=791,
+  serialized_end=847,
 )
 
 
@@ -480,8 +536,8 @@ _NOPOINT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=787,
-  serialized_end=897,
+  serialized_start=849,
+  serialized_end=959,
 )
 
 
@@ -494,8 +550,8 @@ _GAMEOVER = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='result', full_name='othello.GameOver.result', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -525,8 +581,8 @@ _GAMEOVER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=899,
-  serialized_end=976,
+  serialized_start=961,
+  serialized_end=1055,
 )
 
 
@@ -556,10 +612,12 @@ _ERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=978,
-  serialized_end=998,
+  serialized_start=1057,
+  serialized_end=1077,
 )
 
+_CLNTMSG.fields_by_name['type'].enum_type = _CLNTMSG_CLNTTYPE
+_CLNTMSG_CLNTTYPE.containing_type = _CLNTMSG
 _SERVERMSG.fields_by_name['type'].enum_type = _SERVERMSG_ORDERTYPE
 _SERVERMSG.fields_by_name['start'].message_type = _START
 _SERVERMSG.fields_by_name['turn'].message_type = _TURN
@@ -573,7 +631,8 @@ _TURN.fields_by_name['opponent_status'].enum_type = _OPPONENTSTATUS
 _START.fields_by_name['init_state'].enum_type = _INITSTATE
 _START.fields_by_name['color'].enum_type = _COLOR
 _NOPOINT.fields_by_name['opponent_status'].enum_type = _OPPONENTSTATUS
-DESCRIPTOR.message_types_by_name['ClntDecision'] = _CLNTDECISION
+_GAMEOVER.fields_by_name['result'].enum_type = _RESULT
+DESCRIPTOR.message_types_by_name['ClntMsg'] = _CLNTMSG
 DESCRIPTOR.message_types_by_name['ServerMsg'] = _SERVERMSG
 DESCRIPTOR.message_types_by_name['Turn'] = _TURN
 DESCRIPTOR.message_types_by_name['Start'] = _START
@@ -585,14 +644,15 @@ DESCRIPTOR.message_types_by_name['Error'] = _ERROR
 DESCRIPTOR.enum_types_by_name['OpponentStatus'] = _OPPONENTSTATUS
 DESCRIPTOR.enum_types_by_name['InitState'] = _INITSTATE
 DESCRIPTOR.enum_types_by_name['Color'] = _COLOR
+DESCRIPTOR.enum_types_by_name['Result'] = _RESULT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-ClntDecision = _reflection.GeneratedProtocolMessageType('ClntDecision', (_message.Message,), dict(
-  DESCRIPTOR = _CLNTDECISION,
+ClntMsg = _reflection.GeneratedProtocolMessageType('ClntMsg', (_message.Message,), dict(
+  DESCRIPTOR = _CLNTMSG,
   __module__ = 'othello_pb2'
-  # @@protoc_insertion_point(class_scope:othello.ClntDecision)
+  # @@protoc_insertion_point(class_scope:othello.ClntMsg)
   ))
-_sym_db.RegisterMessage(ClntDecision)
+_sym_db.RegisterMessage(ClntMsg)
 
 ServerMsg = _reflection.GeneratedProtocolMessageType('ServerMsg', (_message.Message,), dict(
   DESCRIPTOR = _SERVERMSG,
