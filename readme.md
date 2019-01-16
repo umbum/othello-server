@@ -45,7 +45,7 @@
 
 message는 정해진 key-value로 이루어진 json 형식의 데이터로 한다.
 
-#### message format : json
+### message format : json
 
 - pickle은 python native해서 python에서 쓰기는 편리하지만, 타 언어에서 파싱하기 부자연스럽고 별도의 서드 파티 라이브러리를 사용해야 한다는 단점이 있다.
 - protobuf는 schema를 나타내기 좋고, binary 기반이라 compact하고 빠르다. 정해진 schema대로 serialize/deserialize할 수 있어서 구현 안정성이 높아 보인다. 그러나 모든 구성원들이 protobuf 사용법을 익혀야 한다는 단점이 있다.
@@ -55,7 +55,7 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 
 
-#### Server -> Client로 보내는 메시지 타입
+### Server -> Client로 보내는 메시지 타입
 
 - READY
 - START
@@ -68,13 +68,13 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 
 
-##### READY
+#### READY
 
 상대방 플레이어를 대기하고 있을 때 수신
 
 
 
-##### START
+#### START
 
 게임 시작 시 양측 수신
 
@@ -84,7 +84,7 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 
 
-##### TURN
+#### TURN
 
 턴이 넘어올 때 수신
 
@@ -100,7 +100,7 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 
 
-##### ACCEPT
+#### ACCEPT
 
 클라이언트 턴 종료 시 수신
 
@@ -108,7 +108,7 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 
 
-##### TIMEOUT
+#### TIMEOUT
 
 타임아웃 시 수신
 
@@ -118,7 +118,7 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 
 
-##### NOPOINT
+#### NOPOINT
 
 돌을 놓을 곳이 없을 때 수신
 
@@ -130,7 +130,7 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 
 
-##### GAMEOVER
+#### GAMEOVER
 
 게임이 종료되었을 때 수신
 
@@ -142,7 +142,7 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 
 
-##### ERROR
+#### ERROR
 
 abusing이나 서버 오류 시 수신
 
@@ -150,15 +150,15 @@ abusing이나 서버 오류 시 수신
 
 
 
-#### Client->Server로 보내는 메시지 타입
+### Client->Server로 보내는 메시지 타입
 
-##### DECISION
+#### DECISION
 
 `point :uint32` 놓은 돌의 좌표
 
 
 
-#### 돌의 좌표
+### 돌의 좌표
 
 ```
 opponent_decision, audo_decision, changed_points, available_points, point
@@ -168,11 +168,8 @@ opponent_decision, audo_decision, changed_points, available_points, point
 
 십의 자리는 행, 일의 자리는 열을 나타낸다.
 
-
-
-
-
-key-value  정보는 [sample.json](https://github.com/umbum/othello-with-RL/blob/master/sample.json) 참고. (자료형 및 상세 정보는 [othello.proto](https://github.com/umbum/othello-with-RL/blob/master/othello.proto) 참고.)
+-------------------
+key-value 정보는 [sample.json](https://github.com/umbum/othello-with-RL/blob/master/sample.json) 참고. (자료형 및 상세 정보는 [othello.proto](https://github.com/umbum/othello-with-RL/blob/master/othello.proto) 참고.)
 
 sequence는 [SequanceDiagram.mdj](https://github.com/umbum/othello-with-RL/blob/master/SequenceDiagram.mdj)  참고. (starUML)
 
