@@ -95,13 +95,6 @@ enum OpponentStatus {
   NOPOINT = 2;
 }
 
-enum InitState {
-  BWBW = 0;
-  BBWW = 1;
-  WBWB = 2;
-  WWBB = 3;
-}
-
 enum Color {
   BLACK = 0;
   WHITE = 1;
