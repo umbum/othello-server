@@ -671,7 +671,7 @@
 												"$ref": "AAAAAAFoPBzH8j80Hwk="
 											},
 											"edgePosition": 1,
-											"text": "3 : ready"
+											"text": "3 : READY"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -894,7 +894,7 @@
 												"$ref": "AAAAAAFoPB46Tz/Bcrw="
 											},
 											"edgePosition": 1,
-											"text": "6 : start && init state"
+											"text": "6 : START"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -1006,7 +1006,7 @@
 												"$ref": "AAAAAAFoPB6WWD/XdA4="
 											},
 											"edgePosition": 1,
-											"text": "7 : start init state"
+											"text": "7 : START"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -1228,7 +1228,7 @@
 												"$ref": "AAAAAAFoPDbetEKSAj0="
 											},
 											"edgePosition": 1,
-											"text": "9 : your turn && changed things && available points"
+											"text": "9 : TURN"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -1558,130 +1558,6 @@
 									"text": "클라이언트는 반드시 available point 중 하나만 서버에게 보내야함. 그 외의 것을 보내면 abusing으로 간주."
 								},
 								{
-									"_type": "UMLNoteView",
-									"_id": "AAAAAAFoPNdS60RY4+E=",
-									"_parent": {
-										"$ref": "AAAAAAFoPBq4fT4TSgw="
-									},
-									"font": "Arial;13;0",
-									"left": 632,
-									"top": 336,
-									"width": 232,
-									"height": 105,
-									"text": "len(available_points) == 0에 대한 처리도 클라이언트한테 맡길 수가 없겠네... 클라이언트가 맘먹고 아무것도 안보내주면서버는 멈춰있을거아닌가? changed things를 받아봐야 하니까 보내긴 보내주고. "
-								},
-								{
-									"_type": "UMLSeqMessageView",
-									"_id": "AAAAAAFoSqhPNtWV94A=",
-									"_parent": {
-										"$ref": "AAAAAAFoPBq4fT4TSgw="
-									},
-									"model": {
-										"$ref": "AAAAAAFoSqhPNdWUHHI="
-									},
-									"subViews": [
-										{
-											"_type": "EdgeLabelView",
-											"_id": "AAAAAAFoSqhPNtWW3aQ=",
-											"_parent": {
-												"$ref": "AAAAAAFoSqhPNtWV94A="
-											},
-											"model": {
-												"$ref": "AAAAAAFoSqhPNdWUHHI="
-											},
-											"font": "Arial;13;0",
-											"left": 168,
-											"top": 464,
-											"width": 85.2744140625,
-											"height": 13,
-											"alpha": 1.8844158996989904,
-											"distance": 38.897300677553446,
-											"hostEdge": {
-												"$ref": "AAAAAAFoSqhPNtWV94A="
-											},
-											"edgePosition": 1,
-											"text": "11 : select"
-										},
-										{
-											"_type": "EdgeLabelView",
-											"_id": "AAAAAAFoSqhPNtWXFLM=",
-											"_parent": {
-												"$ref": "AAAAAAFoSqhPNtWV94A="
-											},
-											"model": {
-												"$ref": "AAAAAAFoSqhPNdWUHHI="
-											},
-											"visible": false,
-											"font": "Arial;13;0",
-											"left": 197,
-											"top": 475,
-											"height": 13,
-											"alpha": 1.5707963267948966,
-											"distance": 25,
-											"hostEdge": {
-												"$ref": "AAAAAAFoSqhPNtWV94A="
-											},
-											"edgePosition": 1
-										},
-										{
-											"_type": "EdgeLabelView",
-											"_id": "AAAAAAFoSqhPNtWY2PI=",
-											"_parent": {
-												"$ref": "AAAAAAFoSqhPNtWV94A="
-											},
-											"model": {
-												"$ref": "AAAAAAFoSqhPNdWUHHI="
-											},
-											"visible": false,
-											"font": "Arial;13;0",
-											"left": 163,
-											"top": 476,
-											"height": 13,
-											"alpha": -1.5707963267948966,
-											"distance": 10,
-											"hostEdge": {
-												"$ref": "AAAAAAFoSqhPNtWV94A="
-											},
-											"edgePosition": 1
-										},
-										{
-											"_type": "UMLActivationView",
-											"_id": "AAAAAAFoSqhPNtWZSKg=",
-											"_parent": {
-												"$ref": "AAAAAAFoSqhPNtWV94A="
-											},
-											"model": {
-												"$ref": "AAAAAAFoSqhPNdWUHHI="
-											},
-											"font": "Arial;13;0",
-											"left": 137,
-											"top": 492,
-											"width": 14,
-											"height": 69
-										}
-									],
-									"font": "Arial;13;0",
-									"head": {
-										"$ref": "AAAAAAFoPBrUtj4oapM="
-									},
-									"tail": {
-										"$ref": "AAAAAAFoPBrUtj4oapM="
-									},
-									"points": "143:472;173:472;173:492;150:492",
-									"nameLabel": {
-										"$ref": "AAAAAAFoSqhPNtWW3aQ="
-									},
-									"stereotypeLabel": {
-										"$ref": "AAAAAAFoSqhPNtWXFLM="
-									},
-									"propertyLabel": {
-										"$ref": "AAAAAAFoSqhPNtWY2PI="
-									},
-									"activation": {
-										"$ref": "AAAAAAFoSqhPNtWZSKg="
-									}
-								},
-								{
 									"_type": "UMLSeqMessageView",
 									"_id": "AAAAAAFoSqj21NWx0o4=",
 									"_parent": {
@@ -1812,9 +1688,9 @@
 												"$ref": "AAAAAAFoUCaGqlNsM2A="
 											},
 											"font": "Arial;13;0",
-											"left": 282,
+											"left": 280,
 											"top": 480,
-											"width": 85.2744140625,
+											"width": 88.13720703125,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -1822,7 +1698,7 @@
 												"$ref": "AAAAAAFoUCaGqlNtTsw="
 											},
 											"edgePosition": 1,
-											"text": "12 : decision"
+											"text": "12 : PUT"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -1901,6 +1777,117 @@
 									},
 									"activation": {
 										"$ref": "AAAAAAFoUCaGqlNxjpM="
+									}
+								},
+								{
+									"_type": "UMLSeqMessageView",
+									"_id": "AAAAAAFoSqhPNtWV94A=",
+									"_parent": {
+										"$ref": "AAAAAAFoPBq4fT4TSgw="
+									},
+									"model": {
+										"$ref": "AAAAAAFoSqhPNdWUHHI="
+									},
+									"subViews": [
+										{
+											"_type": "EdgeLabelView",
+											"_id": "AAAAAAFoSqhPNtWW3aQ=",
+											"_parent": {
+												"$ref": "AAAAAAFoSqhPNtWV94A="
+											},
+											"model": {
+												"$ref": "AAAAAAFoSqhPNdWUHHI="
+											},
+											"font": "Arial;13;0",
+											"left": 168,
+											"top": 464,
+											"width": 85.2744140625,
+											"height": 13,
+											"alpha": 1.8844158996989904,
+											"distance": 38.897300677553446,
+											"hostEdge": {
+												"$ref": "AAAAAAFoSqhPNtWV94A="
+											},
+											"edgePosition": 1,
+											"text": "11 : select"
+										},
+										{
+											"_type": "EdgeLabelView",
+											"_id": "AAAAAAFoSqhPNtWXFLM=",
+											"_parent": {
+												"$ref": "AAAAAAFoSqhPNtWV94A="
+											},
+											"model": {
+												"$ref": "AAAAAAFoSqhPNdWUHHI="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": 197,
+											"top": 475,
+											"height": 13,
+											"alpha": 1.5707963267948966,
+											"distance": 25,
+											"hostEdge": {
+												"$ref": "AAAAAAFoSqhPNtWV94A="
+											},
+											"edgePosition": 1
+										},
+										{
+											"_type": "EdgeLabelView",
+											"_id": "AAAAAAFoSqhPNtWY2PI=",
+											"_parent": {
+												"$ref": "AAAAAAFoSqhPNtWV94A="
+											},
+											"model": {
+												"$ref": "AAAAAAFoSqhPNdWUHHI="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": 163,
+											"top": 476,
+											"height": 13,
+											"alpha": -1.5707963267948966,
+											"distance": 10,
+											"hostEdge": {
+												"$ref": "AAAAAAFoSqhPNtWV94A="
+											},
+											"edgePosition": 1
+										},
+										{
+											"_type": "UMLActivationView",
+											"_id": "AAAAAAFoSqhPNtWZSKg=",
+											"_parent": {
+												"$ref": "AAAAAAFoSqhPNtWV94A="
+											},
+											"model": {
+												"$ref": "AAAAAAFoSqhPNdWUHHI="
+											},
+											"font": "Arial;13;0",
+											"left": 137,
+											"top": 492,
+											"width": 14,
+											"height": 69
+										}
+									],
+									"font": "Arial;13;0",
+									"head": {
+										"$ref": "AAAAAAFoPBrUtj4oapM="
+									},
+									"tail": {
+										"$ref": "AAAAAAFoPBrUtj4oapM="
+									},
+									"points": "143:472;173:472;173:492;150:492",
+									"nameLabel": {
+										"$ref": "AAAAAAFoSqhPNtWW3aQ="
+									},
+									"stereotypeLabel": {
+										"$ref": "AAAAAAFoSqhPNtWXFLM="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAFoSqhPNtWY2PI="
+									},
+									"activation": {
+										"$ref": "AAAAAAFoSqhPNtWZSKg="
 									}
 								},
 								{
@@ -2034,9 +2021,9 @@
 												"$ref": "AAAAAAFoUCoJFVP6Jsg="
 											},
 											"font": "Arial;13;0",
-											"left": 288,
+											"left": 280,
 											"top": 572,
-											"width": 63.59716796875,
+											"width": 78.025390625,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -2044,7 +2031,7 @@
 												"$ref": "AAAAAAFoUCoJFVP7RNE="
 											},
 											"edgePosition": 1,
-											"text": "15 : accept"
+											"text": "15 : ACCEPT"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -2267,7 +2254,7 @@
 												"$ref": "AAAAAAFoPMiWjUQHkEw="
 											},
 											"edgePosition": 1,
-											"text": "17 : your turn && changed things && available points"
+											"text": "17 : TURN"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -2360,6 +2347,19 @@
 									"width": 95.83544921875,
 									"height": 157,
 									"text": "timeout 시\n서버가 turn을 뺏고  available 중 아무거나 하나 선택해서 둔다. 이 경우 선택 결과를 양측에 모두 보내야겠네..."
+								},
+								{
+									"_type": "UMLNoteView",
+									"_id": "AAAAAAFoV0XLfa6f0to=",
+									"_parent": {
+										"$ref": "AAAAAAFoPBq4fT4TSgw="
+									},
+									"font": "Arial;13;0",
+									"left": 56,
+									"top": 824,
+									"width": 472,
+									"height": 144,
+									"text": "Feedback\nselect같은건 호스트에서 돌아가는 로직이고, decision같은건 서버 클라이언트가 주고받는 protocol이자 command이니까, 이걸 좀 구분할 필요가 있다.\n처음 보는 사람이 보면 두개가 같이 써있으니까 이게 뭐라는건지.. 싶을 수 있음.\n화살표 모양을 다르게 한다던가.. 아무튼 그런 표시를 해서 구분할 수 있게 해줘야 함."
 								}
 							]
 						}
@@ -2399,7 +2399,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoPBq4fT4SlzE="
 							},
-							"name": "ready",
+							"name": "READY",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},
@@ -2442,7 +2442,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoPBq4fT4SlzE="
 							},
-							"name": "start && init state",
+							"name": "START",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},
@@ -2457,7 +2457,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoPBq4fT4SlzE="
 							},
-							"name": "start init state",
+							"name": "START",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},
@@ -2485,7 +2485,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoPBq4fT4SlzE="
 							},
-							"name": "your turn && changed things && available points",
+							"name": "TURN",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},
@@ -2527,7 +2527,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoPBq4fT4SlzE="
 							},
-							"name": "decision",
+							"name": "PUT",
 							"source": {
 								"$ref": "AAAAAAFoPBrUtj4hafk="
 							},
@@ -2569,7 +2569,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoPBq4fT4SlzE="
 							},
-							"name": "accept",
+							"name": "ACCEPT",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},
@@ -2598,7 +2598,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoPBq4fT4SlzE="
 							},
-							"name": "your turn && changed things && available points",
+							"name": "TURN",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},
@@ -3169,7 +3169,7 @@
 												"$ref": "AAAAAAFoUDhrqlSTyNs="
 											},
 											"edgePosition": 1,
-											"text": "1 : turn"
+											"text": "1 : TURN"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -3280,7 +3280,7 @@
 												"$ref": "AAAAAAFoUDk0q1SzWXQ="
 											},
 											"edgePosition": 1,
-											"text": "2 : processing & auto_decision"
+											"text": "2 : processing"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -3404,7 +3404,7 @@
 												"$ref": "AAAAAAFoUDsqHFUwRYg="
 											},
 											"edgePosition": 1,
-											"text": "3 : timeout"
+											"text": "3 : TIMEOUT"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -3516,7 +3516,7 @@
 												"$ref": "AAAAAAFoUDtTU1VGheI="
 											},
 											"edgePosition": 1,
-											"text": "4 : turn"
+											"text": "4 : TURN"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -3675,7 +3675,7 @@
 												"$ref": "AAAAAAFoUD8CyFWIouU="
 											},
 											"edgePosition": 1,
-											"text": "5 : decision"
+											"text": "5 : PUT"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -3887,9 +3887,9 @@
 												"$ref": "AAAAAAFoUD+w61W4sbM="
 											},
 											"font": "Arial;13;0",
-											"left": 466,
+											"left": 459,
 											"top": 452,
-											"width": 56.3671875,
+											"width": 70.79541015625,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -3897,7 +3897,7 @@
 												"$ref": "AAAAAAFoUD+w61W5LHs="
 											},
 											"edgePosition": 1,
-											"text": "7 : accept"
+											"text": "7 : ACCEPT"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -4120,7 +4120,7 @@
 												"$ref": "AAAAAAFoUEGAY1YsyeI="
 											},
 											"edgePosition": 1,
-											"text": "9 : no_available_point"
+											"text": "9 : NOPOINT"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -4232,7 +4232,7 @@
 												"$ref": "AAAAAAFoUEIFH1ZiULw="
 											},
 											"edgePosition": 1,
-											"text": "10 : turn"
+											"text": "10 : TURN"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -4323,7 +4323,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUDZ8iVQhxk8="
 							},
-							"name": "turn",
+							"name": "TURN",
 							"source": {
 								"$ref": "AAAAAAFoUDfKgFRP/c0="
 							},
@@ -4337,7 +4337,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUDZ8iVQhxk8="
 							},
-							"name": "processing & auto_decision",
+							"name": "processing",
 							"source": {
 								"$ref": "AAAAAAFoUDfKgFRP/c0="
 							},
@@ -4351,7 +4351,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUDZ8iVQhxk8="
 							},
-							"name": "timeout",
+							"name": "TIMEOUT",
 							"source": {
 								"$ref": "AAAAAAFoUDfKgFRP/c0="
 							},
@@ -4366,7 +4366,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUDZ8iVQhxk8="
 							},
-							"name": "turn",
+							"name": "TURN",
 							"source": {
 								"$ref": "AAAAAAFoUDfKgFRP/c0="
 							},
@@ -4380,7 +4380,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUDZ8iVQhxk8="
 							},
-							"name": "decision",
+							"name": "PUT",
 							"source": {
 								"$ref": "AAAAAAFoUDfmk1Rvse8="
 							},
@@ -4408,7 +4408,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUDZ8iVQhxk8="
 							},
-							"name": "accept",
+							"name": "ACCEPT",
 							"source": {
 								"$ref": "AAAAAAFoUDfKgFRP/c0="
 							},
@@ -4437,7 +4437,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUDZ8iVQhxk8="
 							},
-							"name": "no_available_point",
+							"name": "NOPOINT",
 							"source": {
 								"$ref": "AAAAAAFoUDfKgFRP/c0="
 							},
@@ -4452,7 +4452,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUDZ8iVQhxk8="
 							},
-							"name": "turn",
+							"name": "TURN",
 							"source": {
 								"$ref": "AAAAAAFoUDfKgFRP/c0="
 							},
@@ -4972,7 +4972,7 @@
 												"$ref": "AAAAAAFoUEuanMjqxQA="
 											},
 											"edgePosition": 1,
-											"text": "1 : decision"
+											"text": "1 : PUT"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -5184,9 +5184,9 @@
 												"$ref": "AAAAAAFoUEw7gMkXi6k="
 											},
 											"font": "Arial;13;0",
-											"left": 500,
+											"left": 493,
 											"top": 168,
-											"width": 56.3671875,
+											"width": 70.79541015625,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -5194,7 +5194,7 @@
 												"$ref": "AAAAAAFoUEw7gMkYpms="
 											},
 											"edgePosition": 1,
-											"text": "3 : accept"
+											"text": "3 : ACCEPT"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -5508,9 +5508,9 @@
 												"$ref": "AAAAAAFoUJvJ5HaeBRU="
 											},
 											"font": "Arial;13;0",
-											"left": 225,
+											"left": 218,
 											"top": 268,
-											"width": 79.4853515625,
+											"width": 93.18994140625,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -5518,7 +5518,7 @@
 												"$ref": "AAAAAAFoUJvJ5Haft10="
 											},
 											"edgePosition": 1,
-											"text": "5 : gameover"
+											"text": "5 : GAMEOVER"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -5620,9 +5620,9 @@
 												"$ref": "AAAAAAFoUJvn2Xa04AY="
 											},
 											"font": "Arial;13;0",
-											"left": 486,
+											"left": 479,
 											"top": 250,
-											"width": 78.04443359375,
+											"width": 93.18994140625,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -5630,7 +5630,7 @@
 												"$ref": "AAAAAAFoUJvn2Xa1e8I="
 											},
 											"edgePosition": 1,
-											"text": "6 : gameover"
+											"text": "6 : GAMEOVER"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -5742,7 +5742,7 @@
 												"$ref": "AAAAAAFoUFACkcmShN8="
 											},
 											"edgePosition": 1,
-											"text": "7 : decision"
+											"text": "7 : PUT"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -5967,9 +5967,9 @@
 												"$ref": "AAAAAAFoUFBarMm+IRs="
 											},
 											"font": "Arial;13;0",
-											"left": 505,
+											"left": 499,
 											"top": 441,
-											"width": 52.74267578125,
+											"width": 65.0126953125,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -5977,7 +5977,7 @@
 												"$ref": "AAAAAAFoUFBarcm/JKQ="
 											},
 											"edgePosition": 1,
-											"text": "9 : error"
+											"text": "9 : ERROR"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -6079,9 +6079,9 @@
 												"$ref": "AAAAAAFoUJuF+XZymOI="
 											},
 											"font": "Arial;13;0",
-											"left": 222,
+											"left": 214,
 											"top": 464,
-											"width": 85.2744140625,
+											"width": 100.419921875,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -6089,7 +6089,7 @@
 												"$ref": "AAAAAAFoUJuF+nZzhII="
 											},
 											"edgePosition": 1,
-											"text": "10 : gameover"
+											"text": "10 : GAMEOVER"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -6181,7 +6181,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUEoAVch/T/A="
 							},
-							"name": "decision",
+							"name": "PUT",
 							"source": {
 								"$ref": "AAAAAAFoPBs5gT5mD7s="
 							},
@@ -6209,7 +6209,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUEoAVch/T/A="
 							},
-							"name": "accept",
+							"name": "ACCEPT",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},
@@ -6238,7 +6238,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUEoAVch/T/A="
 							},
-							"name": "gameover",
+							"name": "GAMEOVER",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},
@@ -6253,7 +6253,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUEoAVch/T/A="
 							},
-							"name": "gameover",
+							"name": "GAMEOVER",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},
@@ -6268,7 +6268,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUEoAVch/T/A="
 							},
-							"name": "decision",
+							"name": "PUT",
 							"source": {
 								"$ref": "AAAAAAFoPBs5gT5mD7s="
 							},
@@ -6296,7 +6296,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUEoAVch/T/A="
 							},
-							"name": "error",
+							"name": "ERROR",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},
@@ -6311,7 +6311,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFoUEoAVch/T/A="
 							},
-							"name": "gameover",
+							"name": "GAMEOVER",
 							"source": {
 								"$ref": "AAAAAAFoPBrwgj5BI6M="
 							},

@@ -18,7 +18,7 @@ option csharp_namespace = "Bob.Protobuf.Othello";
 
 message ClntMsg {
   enum ClntType {
-    DECISION = 0;
+    PUT = 0;
   }
   ClntType type = 15;
 
@@ -49,7 +49,7 @@ message ServerMsg {
 
 message Turn {
   uint32 time_limit = 1;
-  uint32 opponent_decision = 2;
+  uint32 opponent_put = 2;
   repeated uint32 changed_points = 3;
   repeated uint32 available_points = 4;
   // optional
@@ -66,12 +66,12 @@ message Accept {
 }
 
 message Timeout {
-  uint32 auto_decision = 1;
+  uint32 auto_put = 1;
   repeated uint32 changed_points = 2;
 }
 
 message NoPoint {
-  uint32 opponent_decision = 1;
+  uint32 opponent_put = 1;
   repeated uint32 changed_points = 2;
   // optional
   OpponentStatus opponent_status = 3;    // "timeout"은 가능. "nopoint"는 올 수가 없는게, 양 측 모두 no avail이면 game over다.
@@ -80,7 +80,7 @@ message NoPoint {
 message GameOver {
   Result result = 1;
   // optional
-  uint32 opponent_decision = 2;
+  uint32 opponent_put = 2;
   repeated uint32 changed_points = 3;
 }
 
