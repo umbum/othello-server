@@ -178,3 +178,6 @@ sequence는 [SequanceDiagram.mdj](https://github.com/umbum/othello-with-RL/blob/
 ## 기타
 
 - packet logging
+
+## thanks to
+**SeongBin Hong - processing routine**
