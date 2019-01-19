@@ -71,6 +71,8 @@ class Room(threading.Thread):
         self.wait_user = self.white
         self.turn_user.sock.settimeout(self.TIME_LIMIT)
         self.wait_user.sock.settimeout(self.TIME_LIMIT)
+        prev_put_point = None
+        prev_changed_point = None
         while True:
             available_points = self.processAvailablePoints(self.turn_user.color)
             if len(available_points) == 0:
@@ -81,16 +83,16 @@ class Room(threading.Thread):
                 else:
                     self.turn_user.send({
                         "type": MsgType.NOPOINT,
-                        "opponent_put": [3, 7],
-                        "changed_points": [[0, 3], [7, 0]]
+                        "opponent_put": prev_put_point,
+                        "changed_points": prev_changed_point
                     })
                     continue
 
             self.turn_user.send({
                 "type": MsgType.TURN,
                 "time_limit": self.TIME_LIMIT,
-                "opponent_put": None,
-                "changed_points": None,
+                "opponent_put": prev_put_point,
+                "changed_points": prev_changed_point,
                 "available_points": available_points
             })
             
@@ -123,13 +125,13 @@ class Room(threading.Thread):
                 "type": MsgType.ACCEPT,
                 "opponent_time_limit": self.TIME_LIMIT
             })
-            # point = decimalToPoint(msg["point"])
-            self.updateBoard(msg["point"])
+            prev_put_point = msg["point"]
+            prev_changed_point = self.updateBoard(msg["point"])
             print(self.board)
             if self.checkGameover() != False:
                 break
-            
             self.turn_user, self.wait_user = self.wait_user, self.turn_user
+
 
         self.turn_user.send({
             "type": MsgType.GAMEOVER
@@ -158,6 +160,7 @@ class Room(threading.Thread):
         self.board[i][j] = self.turn_user.color
         for i, j in point_to_reverse:
             self.board[i][j] = self.turn_user.color
+        return point_to_reverse
             
     def processAvailablePoints(self, color):
         """
