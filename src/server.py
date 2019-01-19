@@ -4,17 +4,18 @@ from util import *
 from protocol_enum import *
 import numpy as np
 import processing
+import logging
+import log
 
 HOST = ''
 PORT = 8472
-
-# 한 타임에 한 게임만 진행하도록 구성할 것이므로, room 1개만.
-room = Room()
+logger = logging.getLogger("othello")
 
 # accept하는 main thread 1개랑, room이라는 thread 1개. 채팅같은거나 내 턴이 아닐 때의 user interaction을 생각하면 user마다 thread를 만들어서 recv해야 하는게 맞긴 한데.. 빠르게 구현하려면 그냥 room으로 thread 잡는게 편할 듯.
 
 class Room(threading.Thread):
     def __init__(self):
+        threading.Thread.__init__(self)
         self.black = None
         self.white = None
         self.turn_user = None
@@ -25,30 +26,65 @@ class Room(threading.Thread):
         self.prev_nopoint = False
 
     def run(self):
-        if self.white is None or self.black is None:
-            raise ValueError("white or black user isn't set")
+        try:
+            self.threadMain()
+        # except ConnectionRefusedError:
+        #     # client 측에 뭔가 오류가 있는 경우.
+        #     pass
+        # except ConnectionResetError:
+        #     # client가 종료한 경우
+        #     pass
+        except ConnectionAbortedError as e:
+            logger.error("send하려고 하는데 User.sock이 닫힌 경우.")
+        # except Exception as e:
+            # logger.error(exc_info=e)
+        finally:
+            # 다시 게임할 수 있도록 clear하는 작업을.
+            self.turn_user.sock.close()
+            self.wait_user.sock.close()
+            self.__init__()
+
+
+    def threadMain(self):
+        """
+        종료는 5가지 경우.
+        --- normal ---
+        condition 1. board가 꽉 참.
+        condition 2. 한 종류의 돌이 전멸. 이 경우 내가 놓으면서 내가 질 수는 없으니까, 상대방 색상 돌이 있는지만 체크하면 된다.
+        condition 3. 양측 모두 NOPOINT.
+        --- abnormal ---
+        condition 4. timeout
+        condition 5. error
+        """
+        logger.debug("start Room thread")
         self.initBoard()
         self.white.send({
-            "type": MsgType.START
+            "type": MsgType.START,
             "color": Color.WHITE
         })
         self.black.send({
-            "type": MsgType.START
+            "type": MsgType.START,
             "color": Color.BLACK
         })
         
         self.turn_user = self.black    # 흑부터 시작
         self.wait_user = self.white
+        self.turn_user.sock.settimeout(self.TIME_LIMIT)
+        self.wait_user.sock.settimeout(self.TIME_LIMIT)
         while True:
             available_points = self.processAvailablePoints(self.turn_user.color)
             if len(available_points) == 0:
-                self.turn_user.send({
-                    "type": MsgType.NOPOINT,
-                    "opponent_put": [3, 7],
-                    "changed_points": [[0, 3], [7, 0]]
-                })
-                prev_nopoint = True
-                continue
+                if len(self.processAvailablePoints(self.wait_user.color)) == 0:
+                    # 사유 정도는 보내줘야 할 것 같은데?
+                    # condition 3. 양측 모두 NOPOINT
+                    break
+                else:
+                    self.turn_user.send({
+                        "type": MsgType.NOPOINT,
+                        "opponent_put": [3, 7],
+                        "changed_points": [[0, 3], [7, 0]]
+                    })
+                    continue
 
             self.turn_user.send({
                 "type": MsgType.TURN,
@@ -57,48 +93,60 @@ class Room(threading.Thread):
                 "changed_points": None,
                 "available_points": available_points
             })
-            prev_nopoint = False
             
             try:
                 msg = self.turn_user.recv()
-            except ConnectionResetError as e:
-                print("error")
-                break
-            except TimeoutError as e:
+            except TimeoutError:
+                # condition 4. Timeout
+                # Timeout Exception만 여기서 잡고, 나머지는 상위로 throw.
                 # 패배처리 하기로 했지. setsockopt로 timeout 설정하는것도 추가해야하고.
                 pass
             
-            print(msg)
+            logger.debug(msg)
             
             validation_msg = self.validateInput(msg, available_points)
             if validation_msg is not True:
+                # condition 5. error
                 self.turn_user.send({
                     "type": MsgType.ERROR,
                     "msg": validation_msg
                 })
                 self.wait_user.send({
-                    "type": MsgType.GAMEOVER
+                    "type": MsgType.GAMEOVER,
+                    "result": Result.WIN
+                    # TODO : 사유. 같은거 보내줘야 할 듯.
                 })
-                print("validation FAIL")
+                logger.error(validation_msg)
                 break
 
             self.turn_user.send({
                 "type": MsgType.ACCEPT,
                 "opponent_time_limit": self.TIME_LIMIT
             })
-            point = desimalToPoint(msg["point"])
-            self.updateBoard(point)
-            self.checkGameover()
+            # point = decimalToPoint(msg["point"])
+            self.updateBoard(msg["point"])
+            print(self.board)
+            if self.checkGameover() != False:
+                break
+            
+            self.turn_user, self.wait_user = self.wait_user, self.turn_user
+
+        self.turn_user.send({
+            "type": MsgType.GAMEOVER
+        })
+        self.wait_user.send({
+            "type": MsgType.GAMEOVER
+        })
 
 
     def validateInput(self, msg, available_points):
-        if (msg.get("type") != "PUT"):
+        if (msg.get("type") != ClntType.PUT):
             return "message type is not PUT"
         elif (msg.get("point") is None):
             return "message field 'point' is None"
         
-        point = decimalToPoint(msg["point"])
-        if point not in available_points:
+        i, j= msg["point"]
+        if (i, j) not in available_points:
             return "abusing? point is not in avaliable_points"
         
         return True
@@ -111,7 +159,6 @@ class Room(threading.Thread):
         for i, j in point_to_reverse:
             self.board[i][j] = self.turn_user.color
             
-
     def processAvailablePoints(self, color):
         """
         색상이 color인 player가 놓을 수 있는 곳의 좌표를 계산
@@ -124,17 +171,12 @@ class Room(threading.Thread):
         return processing.getAvailablePosition(self.board, self.turn_user.color)
 
     def checkGameover(self):
-        # condition 1. board가 꽉 참.
-        # condition 2. 한 종류의 돌이 전멸. 이 경우 내가 놓으면서 내가 질 수는 없으니까, 상대방 색상 돌이 있는지만 체크하면 된다.
-        # condition 3. 양측 모두 NOPOINT.
-        
         if np.count_nonzero(self.board) == self.BOARD_SIZE * self.BOARD_SIZE:
-            # board full
+            # condition 1. board full
             return "full"
         elif len(np.where(self.board == self.wait_user.color)[0]) == 0:
-            # 상대방 돌 전멸
+            # condition 2. 상대방 돌 전멸
             return "annihilation"
-        elif
 
         return False
 
@@ -152,18 +194,10 @@ class User:
         self.color = color
 
     def send(self, msg):
-        return self.sock(serialize(msg))
+        return self.sock.sendall((serialize(msg)))
     
     def recv(self):
-        _msg_len = self.sock.recv(4)
-        if len(_msg_len) < 4:
-            raise ConnectionResetError
-        msg_len = struct.unpack('>L', _msg_len)[0]
-        msg_raw = self.sock.recv(msg_len)
-        while len(msg_raw) < msg_len:
-            msg_raw += self.sock.recv(msg_len - len(msg_raw))
-        msg = json.loads(msg_raw)
-        return msg
+        return deserialize(self.sock)
 
 
 class AcceptServer:
@@ -171,11 +205,20 @@ class AcceptServer:
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.bind((HOST, PORT))
+        self.sock.settimeout(1)
 
     def run(self):
+        logger.debug("start AcceptServer")
         self.sock.listen(1)
         while True:
-            clnt_sock, _ = self.sock.accept()
+            try:
+                try:
+                    clnt_sock, _ = self.sock.accept()
+                except socket.timeout:
+                    continue
+            except KeyboardInterrupt:
+                break
+            
             if room.black is None:
                 # set black player
                 room.black = User(clnt_sock, Color.BLACK)
@@ -192,8 +235,11 @@ class AcceptServer:
                     "type": MsgType.FULL
                 }))
                 clnt_sock.close()
-            
+        
+        self.sock.close()
 
+# 한 타임에 한 게임만 진행하도록 구성할 것이므로, room 1개만.
+room = Room()
 if __name__ == "__main__":
     server = AcceptServer()
     server.run()
