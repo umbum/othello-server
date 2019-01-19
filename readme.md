@@ -46,7 +46,7 @@ message는 정해진 key-value로 이루어진 json 형식의 데이터로 한�
 
 예제
 ```
-b'\x0b\x00\x00\x00{"type": 8}'
+b'\x00\x00\x00\x0b{"type": 8}'
 ```
 
 ### message format : json
@@ -160,11 +160,14 @@ abusing이나 서버 오류 시 수신
 
 ```
 opponent_put, changed_points, available_points, point
+[row, col] -> [[3, 2], [1, 4]]
 ```
 
-돌의 위치는 8*8 오델로를 2차원 배열로 관리할 것을 고려하여 10진수 정수 00~77을 사용하도록 한다.
+돌의 위치는 8*8 오델로를 2차원 배열로 관리할 것을 고려하여 2차원 배열로 전송한다.
 
-십의 자리는 행, 일의 자리는 열을 나타낸다.
+좌측 최상단이 [0, 0], 우측 최하단이 [7, 7]이다. 
+
+
 
 -------------------
 key-value 정보는 [sample.json](https://github.com/umbum/othello-with-RL/blob/master/sample.json) 참고. (자료형 및 상세 정보는 [othello.proto](https://github.com/umbum/othello-with-RL/blob/master/othello.proto) 참고.)
