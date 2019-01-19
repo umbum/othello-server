@@ -17,10 +17,3 @@ def deserialize(sock):
         msg_raw += sock.recv(msg_len - len(msg_raw))
     msg = json.loads(msg_raw)
     return msg
-
-
-def decimalToPoint(decimal):
-    j = decimal % 10
-    i = int((decimal - j) / 10)
-    return (i, j)
-

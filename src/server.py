@@ -34,7 +34,7 @@ class Room(threading.Thread):
         # except ConnectionResetError:
         #     # client가 종료한 경우
         #     pass
-        except ConnectionAbortedError as e:
+        except ConnectionAbortedError:
             logger.error("send하려고 하는데 User.sock이 닫힌 경우.")
         # except Exception as e:
             # logger.error(exc_info=e)
@@ -43,6 +43,7 @@ class Room(threading.Thread):
             self.turn_user.sock.close()
             self.wait_user.sock.close()
             self.__init__()
+            logger.info("----clear & reset----")
 
 
     def threadMain(self):
