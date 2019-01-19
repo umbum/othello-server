@@ -43,7 +43,7 @@ def getAvailablePosition(board, color):
     result = []
     for i, j in zip(*np.where(board == 0)):
         if getReversedPosition(board,color,i,j):  # 해당 좌표가 비어있고, 해당 방향에서 뒤집을 수 있는 돌 리스트가 비어있지 않으면
-            result.append((i,j))  #좌표 기입
+            result.append((int(i),int(j)))  #좌표 기입
     return result  # 착수 가능한 좌표 리스트 반환
 
 
