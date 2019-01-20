@@ -186,10 +186,10 @@ class Room(threading.Thread):
 
 
     def initBoard(self):
-        self.board[3][3] = Color.BLACK
-        self.board[3][4] = Color.WHITE
-        self.board[4][3] = Color.WHITE
-        self.board[4][4] = Color.BLACK
+        self.board[3][3] = Color.WHITE
+        self.board[3][4] = Color.BLACK
+        self.board[4][3] = Color.BLACK
+        self.board[4][4] = Color.WHITE
 
 
 class User:
