@@ -87,7 +87,8 @@ class Room(threading.Thread):
                         "opponent_put": prev_put_point,
                         "changed_points": prev_changed_point
                     })
-                    continue
+                    self.turn_user, self.wait_user = self.wait_user, self.turn_user
+
 
             self.turn_user.send({
                 "type": MsgType.TURN,
@@ -103,7 +104,7 @@ class Room(threading.Thread):
                 # condition 4. Timeout
                 # Timeout Exception만 여기서 잡고, 나머지는 상위로 throw.
                 # 패배처리 하기로 했지. setsockopt로 timeout 설정하는것도 추가해야하고.
-                pass
+                break
             
             logger.debug(msg)
             
