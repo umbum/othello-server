@@ -172,7 +172,7 @@ class Room(threading.Thread):
         -------
         List<Tuple<int>>
         """
-        return processing.getAvailablePosition(self.board, self.turn_user.color)
+        return processing.getAvailablePosition(self.board, color)
 
     def checkGameover(self):
         if np.count_nonzero(self.board) == self.BOARD_SIZE * self.BOARD_SIZE:
