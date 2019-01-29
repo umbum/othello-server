@@ -58,5 +58,5 @@
 // put : Client to Server
 {
     "type": 0,
-    "point": 11
+    "point": [1, 1]
 }
