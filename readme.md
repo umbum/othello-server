@@ -98,7 +98,7 @@ b'\x00\x00\x00\x0b{"type": 8}'
 
 `available_points :List<uint32>` 현재 턴에 놓을 수 있는 좌표
 
-`opponent_status: OpponentStatus` 이전 턴 상대방의 상태(e.g., timeout)
+`opponent_status: OpponentStatus` 이전 턴 상대방의 상태(e.g., NOPOINT)
 
 
 
