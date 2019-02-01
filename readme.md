@@ -110,12 +110,6 @@ b'\x00\x00\x00\x0b{"type": 8}'
 
 
 
-#### TIMEOUT
-
-타임아웃 시 게임 종료
-
-
-
 #### NOPOINT
 
 돌을 놓을 곳이 없을 때 수신
@@ -138,6 +132,7 @@ b'\x00\x00\x00\x0b{"type": 8}'
 
 `changed_points :List<uint32>` 상대방이 놓은 마지막 수로 인해 뒤집힌 돌의 좌표(서버 측 프로세싱 결과)
 
+`gameover_reason :GameoverReason` 게임 종료 사유 ( TIMEOUT, BOTH_NOPOINT, BOARD_FULL , ...)
 
 
 #### ERROR

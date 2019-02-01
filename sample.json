@@ -13,10 +13,9 @@
 {
     "type": 2,
     "time_limit": 50,
+    "available_points" : [[1, 5], [2, 6]],
     "opponent_put": [3, 7],
     "changed_points": [[0, 4], [7, 0]],
-    "available_points" : [[1, 5], [2, 6]],
-    // optional
     "opponent_status": 1
 }
 
@@ -26,17 +25,11 @@
     "opponent_time_limit": 50
 }
 
-// TIMEOUT
-{
-    "type": 4,
-}
-
 // NOPOINT : 양 측 모두 NOPOINT이면 game over다.
 {
     "type": 5,
     "opponent_put": [3, 7],
     "changed_points": [[0, 3], [7, 0]],
-    "opponent_status": 1
 }
 
 // GAMEOVER
@@ -45,7 +38,8 @@
     "result": 0,
     // optional : 마지막 수를 두면서 게임이 끝나면, 그 마지막 수에 대한 정보를 상대편에게 보내면서 게임을 종료해야 하므로.
     "opponent_put": [3, 7],
-    "changed_points": [[0, 3], [7, 0]]
+    "changed_points": [[0, 3], [7, 0]],
+    "reason": 1
 }
 
 // ERROR

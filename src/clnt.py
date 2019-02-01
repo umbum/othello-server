@@ -3,6 +3,7 @@ from util import *
 from protocol_enum import *
 from enum import IntEnum
 import time
+import random
 
 HOST = '127.0.0.1'
 PORT = 8472
@@ -18,12 +19,13 @@ if __name__ == "__main__":
         except socket.timeout:
             continue
         print(msg)
-        time.sleep(3)
+        time.sleep(0.1)
         if msg["type"] == MsgType.TURN:
             available_points = msg["available_points"]
+            
             sock.sendall(serialize({
                 "type": ClntType.PUT,
-                "point": available_points[0]
+                "point": random.choice(available_points)
             }))
         elif msg["type"] == MsgType.GAMEOVER:
             break

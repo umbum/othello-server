@@ -1,11 +1,13 @@
+import logging
 import socket
 import threading
-from util import *
-from protocol_enum import *
+
 import numpy as np
-import processing
-import logging
+
 import log
+import processing
+from protocol_enum import *
+from util import *
 
 HOST = ''
 PORT = 8472
@@ -28,13 +30,13 @@ class Room(threading.Thread):
     def run(self):
         try:
             self.threadMain()
-        # except ConnectionRefusedError:
-        #     # client 측에 뭔가 오류가 있는 경우.
-        #     pass
-        # except ConnectionResetError:
-        #     # client가 종료한 경우
-        #     pass
-        except ConnectionAbortedError:
+        except ConnectionRefusedError:
+            # client 측에 뭔가 오류가 있는 경우.
+            pass
+        except ConnectionResetError:
+            # client가 종료한 경우
+            pass
+        except ConnectionAbortedError as e:
             logger.error("send하려고 하는데 User.sock이 닫힌 경우.")
         # except Exception as e:
             # logger.error(exc_info=e)
@@ -59,6 +61,21 @@ class Room(threading.Thread):
         """
         logger.debug("start Room thread")
         self.initBoard()
+
+        self.turn_user = self.black    # 흑부터 시작
+        self.wait_user = self.white
+
+        self.turn_user.sock.settimeout(self.TIME_LIMIT)
+        self.wait_user.sock.settimeout(self.TIME_LIMIT)
+
+        winner = None
+        loser  = None
+
+        prev_put_point = None
+        prev_changed_point = None
+        prev_opponent_status = OpponentStatus.NORMAL
+        gameover_reason = None
+
         self.white.send({
             "type": MsgType.START,
             "color": Color.WHITE
@@ -67,43 +84,51 @@ class Room(threading.Thread):
             "type": MsgType.START,
             "color": Color.BLACK
         })
-        
-        self.turn_user = self.black    # 흑부터 시작
-        self.wait_user = self.white
-        self.turn_user.sock.settimeout(self.TIME_LIMIT)
-        self.wait_user.sock.settimeout(self.TIME_LIMIT)
-        prev_put_point = None
-        prev_changed_point = None
+
         while True:
             available_points = self.processAvailablePoints(self.turn_user.color)
             if len(available_points) == 0:
-                if len(self.processAvailablePoints(self.wait_user.color)) == 0:
-                    # 사유 정도는 보내줘야 할 것 같은데?
+                # NOPOINT
+                if prev_opponent_status == OpponentStatus.NOPOINT:
                     # condition 3. 양측 모두 NOPOINT
+                    # 승 패는 계산해봐야 알 수 있음.
+                    gameover_reason = GameoverReason.BOTH_NOPOINT
+                    winner, loser = self.checkWinner()
                     break
                 else:
                     self.turn_user.send({
                         "type": MsgType.NOPOINT,
                         "opponent_put": prev_put_point,
-                        "changed_points": prev_changed_point
+                        "changed_points": prev_changed_point,
                     })
+                    prev_put_point = None
+                    prev_changed_point = None
+                    prev_opponent_status = OpponentStatus.NOPOINT
                     self.turn_user, self.wait_user = self.wait_user, self.turn_user
+                    continue
+            else:
+                prev_opponent_status = OpponentStatus.NORMAL
 
-
+            # opponent_status는 없애도 될 것 같은데? 어차피 NOPOINT랑 NORMAL만 있을거면, opponent_put이랑 changed가 None인걸로 식별 가능해서.
             self.turn_user.send({
                 "type": MsgType.TURN,
                 "time_limit": self.TIME_LIMIT,
+                "available_points": available_points,
                 "opponent_put": prev_put_point,
                 "changed_points": prev_changed_point,
-                "available_points": available_points
+                "opponent_status": prev_opponent_status
             })
+
             
             try:
                 msg = self.turn_user.recv()
             except TimeoutError:
                 # condition 4. Timeout
-                # Timeout Exception만 여기서 잡고, 나머지는 상위로 throw.
-                # 패배처리 하기로 했지. setsockopt로 timeout 설정하는것도 추가해야하고.
+                prev_put_point = None
+                prev_changed_point = None
+                gameover_reason = GameoverReason.TIMEOUT
+                # wait_user가 win. turn_user가 lose
+                winner, loser = self.wait_user, self.turn_user
                 break
             
             logger.debug(msg)
@@ -115,12 +140,11 @@ class Room(threading.Thread):
                     "type": MsgType.ERROR,
                     "msg": validation_msg
                 })
-                self.wait_user.send({
-                    "type": MsgType.GAMEOVER,
-                    "result": Result.WIN
-                    # TODO : 사유. 같은거 보내줘야 할 듯.
-                })
                 logger.error(validation_msg)
+
+                gameover_reason = GameoverReason.ERROR
+                # wait_user가 win. turn_user가 lose
+                winner, loser = self.wait_user, self.turn_user
                 break
 
             self.turn_user.send({
@@ -130,16 +154,45 @@ class Room(threading.Thread):
             prev_put_point = msg["point"]
             prev_changed_point = self.updateBoard(msg["point"])
             print(self.board)
-            if self.checkGameover() != False:
+
+            gameover_reason = self.checkGameover()
+            if gameover_reason is not None:
+                # condition 1, 2.
+                if gameover_reason == GameoverReason.BOARD_FULL:
+                    # condition 1인 경우 승/패는 계산해봐야 알 수 있음.
+                    winner, loser = self.checkWinner()
+                elif gameover_reason == GameoverReason.ANNIHILATION:
+                    # condition 2인 경우 turn_user가 win, wait_user가 lose.
+                    winner, loser = self.turn_user, self.wait_user
                 break
+
             self.turn_user, self.wait_user = self.wait_user, self.turn_user
+        # while end
+
+        assert(gameover_reason is not None)
+
+        if winner == self.turn_user:
+            turn_user_result = Result.WIN
+            wait_user_result = Result.LOSE
+        elif winner == self.wait_user:
+            turn_user_result = Result.LOSE
+            wait_user_result = Result.WIN
+        else:
+            turn_user_result = Result.DRAW
+            wait_user_result = Result.DRAW
 
 
         self.turn_user.send({
-            "type": MsgType.GAMEOVER
+            "type": MsgType.GAMEOVER,
+            "reason": gameover_reason,
+            "result": turn_user_result,
         })
         self.wait_user.send({
-            "type": MsgType.GAMEOVER
+            "type": MsgType.GAMEOVER,
+            "reason": gameover_reason,
+            "result": wait_user_result,
+            "opponent_put": prev_put_point,
+            "changed_points": prev_changed_point
         })
 
 
@@ -178,12 +231,24 @@ class Room(threading.Thread):
     def checkGameover(self):
         if np.count_nonzero(self.board) == self.BOARD_SIZE * self.BOARD_SIZE:
             # condition 1. board full
-            return "full"
+            return GameoverReason.BOARD_FULL
         elif len(np.where(self.board == self.wait_user.color)[0]) == 0:
-            # condition 2. 상대방 돌 전멸
-            return "annihilation"
+            # condition 2. 한 종류의 돌이 전멸. 이 경우 내가 놓으면서 내가 질 수는 없으니까, 상대방 색상 돌이 있는지만 체크하면 된다.
+            return GameoverReason.ANNIHILATION
 
-        return False
+        return None
+
+    
+    def checkWinner(self):
+        num_black = np.count_nonzero(self.board == Color.BLACK)
+        num_white = np.count_nonzero(self.board == Color.WHITE)
+        if num_black > num_white:
+            return self.black, self.white
+        elif num_black < num_white:
+            return self.white, self.black
+        else:        
+            # DRAW
+            return None, None
 
 
     def initBoard(self):
@@ -233,6 +298,7 @@ class AcceptServer:
                 })
             elif room.white is None:
                 # set white player
+                
                 room.white = User(clnt_sock, Color.WHITE)
                 room.start()
             else:
