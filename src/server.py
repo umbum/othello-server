@@ -122,8 +122,9 @@ class Room(threading.Thread):
             
             try:
                 msg = self.turn_user.recv()
-            except TimeoutError:
+            except (socket.timeout, TimeoutError):
                 # condition 4. Timeout
+                logger.debug("timeout!")
                 prev_put_point = None
                 prev_changed_point = None
                 gameover_reason = GameoverReason.TIMEOUT
@@ -194,6 +195,8 @@ class Room(threading.Thread):
             "opponent_put": prev_put_point,
             "changed_points": prev_changed_point
         })
+
+        logger.info("[GAMEOVER] reason: {} | result: {}".format(gameover_reason, winner.color))
 
 
     def validateInput(self, msg, available_points):
