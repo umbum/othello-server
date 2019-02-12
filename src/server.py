@@ -45,7 +45,7 @@ class Room(threading.Thread):
             # logger.error(exc_info=e)
         finally:
             # 다시 게임할 수 있도록 clear하는 작업을.
-            time.sleep(10)
+            time.sleep(5)
             self.turn_user.sock.close()
             self.wait_user.sock.close()
             self.__init__()
@@ -90,6 +90,8 @@ class Room(threading.Thread):
         })
 
         while True:
+            input("\n>>> next turn (press enter)\n")
+
             available_points = self.processAvailablePoints(self.turn_user.color)
             if len(available_points) == 0:
                 # NOPOINT
@@ -133,7 +135,7 @@ class Room(threading.Thread):
                 winner, loser = self.wait_user, self.turn_user
                 break
             
-            logger.debug(msg)
+            logger.debug("{} put {}".format(self.turn_user.color, msg["point"]))
             
             validation_msg = self.validateInput(msg, available_points)
             if validation_msg is not True:
