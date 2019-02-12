@@ -31,11 +31,13 @@ class Room(threading.Thread):
     def run(self):
         try:
             self.threadMain()
-        except ConnectionRefusedError:
+        except ConnectionRefusedError as e:
             # client 측에 뭔가 오류가 있는 경우.
+            logger.error(str(e))
             pass
-        except ConnectionResetError:
+        except ConnectionResetError as e:
             # client가 종료한 경우
+            logger.error(str(e))
             pass
         except ConnectionAbortedError as e:
             logger.error("send하려고 하는데 User.sock이 닫힌 경우.")
