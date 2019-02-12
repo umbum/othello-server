@@ -1,6 +1,7 @@
 import logging
 import socket
 import threading
+import time
 
 import numpy as np
 
@@ -42,6 +43,7 @@ class Room(threading.Thread):
             # logger.error(exc_info=e)
         finally:
             # 다시 게임할 수 있도록 clear하는 작업을.
+            time.sleep(10)
             self.turn_user.sock.close()
             self.wait_user.sock.close()
             self.__init__()
@@ -99,17 +101,14 @@ class Room(threading.Thread):
                     self.turn_user.send({
                         "type": MsgType.NOPOINT,
                         "opponent_put": prev_put_point,
-                        "changed_points": prev_changed_point,
+                        "changed_points": prev_changed_point
                     })
                     prev_put_point = None
                     prev_changed_point = None
                     prev_opponent_status = OpponentStatus.NOPOINT
                     self.turn_user, self.wait_user = self.wait_user, self.turn_user
                     continue
-            else:
-                prev_opponent_status = OpponentStatus.NORMAL
 
-            # opponent_status는 없애도 될 것 같은데? 어차피 NOPOINT랑 NORMAL만 있을거면, opponent_put이랑 changed가 None인걸로 식별 가능해서.
             self.turn_user.send({
                 "type": MsgType.TURN,
                 "time_limit": self.TIME_LIMIT,
@@ -118,7 +117,7 @@ class Room(threading.Thread):
                 "changed_points": prev_changed_point,
                 "opponent_status": prev_opponent_status
             })
-
+            prev_opponent_status = OpponentStatus.NORMAL
             
             try:
                 msg = self.turn_user.recv()
@@ -175,13 +174,15 @@ class Room(threading.Thread):
         if winner == self.turn_user:
             turn_user_result = Result.WIN
             wait_user_result = Result.LOSE
+            winner_color = "BLACK" if self.turn_user.color == Color.BLACK else "WHITE"
         elif winner == self.wait_user:
             turn_user_result = Result.LOSE
             wait_user_result = Result.WIN
+            winner_color = "BLACK" if self.wait_user.color == Color.BLACK else "WHITE"
         else:
             turn_user_result = Result.DRAW
             wait_user_result = Result.DRAW
-
+            winner_color = "DRAW"
 
         self.turn_user.send({
             "type": MsgType.GAMEOVER,
@@ -196,7 +197,7 @@ class Room(threading.Thread):
             "changed_points": prev_changed_point
         })
 
-        logger.info("[GAMEOVER] reason: {} | result: {}".format(gameover_reason, winner.color))
+        logger.info("[GAMEOVER] reason: {} | result: {}".format(gameover_reason, winner_color))
 
 
     def validateInput(self, msg, available_points):
@@ -299,9 +300,10 @@ class AcceptServer:
                 room.black.send({
                     "type": MsgType.READY
                 })
+                print("[JOIN] P1 (BLACK)")
             elif room.white is None:
                 # set white player
-                
+                print("[JOIN] P2 (WHITE)")
                 room.white = User(clnt_sock, Color.WHITE)
                 room.start()
             else:
