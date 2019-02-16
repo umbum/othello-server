@@ -31,18 +31,26 @@ class Room(threading.Thread):
     def run(self):
         try:
             self.threadMain()
-        except ConnectionRefusedError as e:
-            # client 측에 뭔가 오류가 있는 경우.
+        except (ConnectionResetError, ConnectionRefusedError, ConnectionAbortedError) as e:
+            # client 측에 뭔가 오류가 있거나, client가 종료한 경우
             logger.error(str(e))
-            pass
-        except ConnectionResetError as e:
-            # client가 종료한 경우
-            logger.error(str(e))
-            pass
-        except ConnectionAbortedError as e:
-            logger.error("send하려고 하는데 User.sock이 닫힌 경우.")
-        # except Exception as e:
-            # logger.error(exc_info=e)
+            try:
+                self.wait_user.send({
+                    "type": MsgType.GAMEOVER,
+                    "reason": GameoverReason.ERROR,
+                    "result": Result.WIN,
+                })
+                logger.info("An error occured in {}. {} wins.".format(self.turn_user.color, self.wait_user.color))
+            except:
+                try:
+                    self.turn_user.send({
+                        "type": MsgType.GAMEOVER,
+                        "reason": GameoverReason.ERROR,
+                        "result": Result.WIN,
+                    })
+                    logger.info("An error occured in {}. {} wins.".format(self.wait_user.color, self.turn_user.color))
+                except:
+                    logger.critical("Errors occured in both users")
         finally:
             # 다시 게임할 수 있도록 clear하는 작업을.
             time.sleep(5)
@@ -90,7 +98,7 @@ class Room(threading.Thread):
         })
 
         while True:
-            input("\n>>> next turn (press enter)\n")
+            # input("\n>>> next turn (press enter)\n")
 
             available_points = self.processAvailablePoints(self.turn_user.color)
             if len(available_points) == 0:
